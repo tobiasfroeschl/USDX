@@ -451,6 +451,7 @@ begin
   end;
 end;
 
+// TODO
 // Method for input parsing. If false is returned, GetNextWindow
 // should be checked to know the next window to load;
 function TScreenEditSub.ParseInput(PressedKey: cardinal; CharCode: UCS4Char; PressedDown: boolean): boolean;
@@ -1379,7 +1380,7 @@ begin
           end;
         end;
 
-      SDLK_KP_PLUS:
+      SDLK_PAGEUP:
         begin
           // Increase tone of all notes
           CopyToUndo;
@@ -1397,7 +1398,7 @@ begin
           ShowInteractiveBackground;
         end;
 
-      SDLK_KP_MINUS:
+      SDLK_PAGEDOWN:
         begin
           // Decrease tone of all notes
           CopyToUndo;
@@ -1816,7 +1817,7 @@ begin
             ShowInteractiveBackground;
           end;
 
-          if (SDL_ModState = KMOD_LCTRL or KMOD_LSHIFT) then
+          if SDL_ModState = KMOD_LSHIFT then
           begin
             // deletes current sentence
             CopyToUndo;
