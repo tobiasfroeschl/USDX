@@ -523,6 +523,7 @@ begin
   end;
 end;
 
+// TODO
 // Method for input parsing. If false is returned, GetNextWindow
 // should be checked to know the next window to load;
 function TScreenEditSub.ParseInput(PressedKey: cardinal; CharCode: UCS4Char; PressedDown: boolean): boolean;
