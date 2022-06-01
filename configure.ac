@@ -42,7 +42,7 @@ AC_PRESERVE_HELP_ORDER
 # options for make command
 AC_PROG_MAKE_SET
 # find tool for ln -s (e.g. uses cp -p for FAT-filesystems)
-AC_LN_S
+AC_PROG_LN_S
 # find a program for recursive dir creation
 AC_PROG_MKDIR_P
 # find the best install tool
