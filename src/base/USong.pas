@@ -130,6 +130,7 @@ type
     function ReadTXTHeader(SongFile: TTextFileStream; ReadCustomTags: Boolean): boolean;
 
     function GetFolderCategory(const aFileName: IPath): UTF8String;
+    function FindSongFile(Dir: IPath; Mask: UTF8String): IPath;
     function LoadOpenedSong(SongFile: TTextFileStream; FileNamePath: IPath; DuetChange: boolean; RapToFreestyle: boolean; OutOfBoundsToFreestyle: boolean; AudioLength: real): boolean;
     function GetMD5: string;
     procedure SetMD5(const Value: string);
@@ -472,6 +473,17 @@ begin
   FreeAndNil(Self.FormatVersion);
   CoverTex.Free;
   inherited;
+end;
+
+function TSong.FindSongFile(Dir: IPath; Mask: UTF8String): IPath;
+var
+  Iter: IFileIterator;
+begin
+  Iter := FileSystem.FileFind(Dir.Append(Mask), faDirectory);
+  if (Iter.HasNext) then
+    Result := Iter.Next.Name
+  else
+    Result := PATH_NONE;
 end;
 
 function TSong.DecodeFilename(Filename: RawByteString): IPath;
@@ -1457,6 +1469,12 @@ begin
   finally
     TagMap.Free;
   end;
+
+  if self.Cover.IsUnset then
+    self.Cover := FindSongFile(Path, '*[CO].jpg');
+
+  if self.Background.IsUnset then
+    self.Background := FindSongFile(Path, '*[BG].jpg');
 
   //Check if all Required Values are given
   if (Done <> 15) then
